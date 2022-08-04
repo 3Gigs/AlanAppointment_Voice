@@ -75,4 +75,21 @@ intent(vDashboard, ("Make an appointment on $(DATE) at $(TIME)"), p => {
     p.play({
         command : "schedules($(p.DATE),$(p.TIME))"
     });
+    p.play('what you want to make an appointment for?');
+    p.then(about);
+});
+
+//Given starting time and end time
+intent(("Make an appointment from $(fromDate DATE) $(fromTime TIME) to $(toDate DATE) $(toTime TIME)"), p => {
+    p.play('make an appointment from ');
+    p.play(p.fromDate.value); 
+    p.play(p.fromTime.value);
+    p.play("to");
+    p.play(p.toDate.value); 
+    p.play(p.toTime.value);
+    p.play({
+        command : `schedules(${p.fromDate},${p.fromTime},${p.toDate},${p.toTime})`
+    });
+    p.play('what you want to make an appointment for?');
+    p.then(about);
 });
