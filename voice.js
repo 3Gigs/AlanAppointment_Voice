@@ -10,13 +10,13 @@ function intro (p)
 intent (('Get started'), p=> {
     intro(p);
     p.play({
-        command: "Dashboard"
+        command: "navigate:Dashboard"
     });
 });
 
 intent (('home'), p=> {
     p.play({
-        command: "home"
+        command: "navigate:Home"
     });
     p.play("home");
 });
@@ -31,14 +31,14 @@ const BACK_PAGE = [
     
 intent(BACK_PAGE, p => {
     p.play({
-        command: 'go-back'
+        command: 'go:Back'
     });
     p.play('going back', 'last page', 'going to previous page');
 });
     
 intent(('Sign in'), p =>{
     p.play({
-        command : "sign in"
+        command : "navigate:SignIn"
     });
     p.play('login');
     p.play('enter your email and password');
