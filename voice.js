@@ -44,14 +44,19 @@ intent(('Sign in'), p =>{
     p.play('enter your email and password');
 });
 
-onCreateUser(p => {
-    p.userData.month = {en: "January|February|March|April|May|June|July|August|September|October|November|December"};
-    p.userData.day = {en: ""};
+intent(("Make an appointment on $(DATE)"), p => {
+    p.play('make an appointment on ');
+    p.play(p.DATE.value); 
+    p.play({
+        command : "schedules($(p.DATE))"
+    });
 });
 
-intent(("Make an appointment on $(MONTH p: month) $(DAY p: day)"), p => {
-    p.play('make an appointment on ${p.MONTH.value} + ${p.DAY.number}'); 
+intent(("Make an appointment on $(DATE) at $(TIME)"), p => {
+    p.play('make an appointment on ');
+    p.play(p.DATE.value); 
+    p.play("at $(p.TIME.value)");
     p.play({
-        command : "schedules($MONTH, $DAY)"
+        command : "schedules($(p.DATE),$(p.TIME))"
     });
 });
