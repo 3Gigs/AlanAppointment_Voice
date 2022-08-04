@@ -4,7 +4,7 @@ let about = context(() => {
     intent('I want a $(app~ doctor appointment~doctor|meeting~business meeting|due date ~ due date of|counseling~conversation|class~course)' , p => {
         p.play(`You have made an appiontment about ${p.app.label}`);
         p.play({ 
-            command : {title: p.app.label, start: p.state.start, end: p.state.end, id: null}
+            command:"createEvent", eventInfo : {title: p.app.label, start: p.state.start, end: p.state.end, id: null}
         });
     });
 });
