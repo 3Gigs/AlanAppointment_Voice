@@ -1,4 +1,5 @@
 const vDashboard = visual({screen: "Dashboard"});
+const vDashboardModal = visual({screen: "Dashboard", modal: true});
 
 let about = context(() => {
     intent('I want a $(app~ doctor appointment~doctor|meeting~business meeting|due date ~ due date of|counseling~conversation|class~course)' , p => {
@@ -19,11 +20,6 @@ intent(vDashboard, ("Make an appointment on $(DATE)"), p => {
     p.state.end = p.DATE.luxon.toISO();
     p.play('what you want to make an appointment for?');
     p.then(about, {state: p.state});
-});
-
-intent(vDashboard, ("View event $(EVENT* .+)"), p => {
-    p.play('Viewing event: ' + p.EVENT.value);
-    p.play({command: 'viewEvent', title: p.EVENT.value});
 });
 
 //Only day and time, default 1 hout appointment.
@@ -49,3 +45,11 @@ intent(vDashboard, ("Make an appointment from $(fromDate DATE) $(fromTime TIME) 
     p.play('what you want to make an appointment for?');
     p.then(about);
 });
+
+intent(vDashboardModal, "(close | got it | thank you)", p => {
+    p.play({command: "closeEvent"});
+})
+
+intent(vDashboardModal, "delete this event", p => {
+    p.play({command: "deleteEvent"});
+})
