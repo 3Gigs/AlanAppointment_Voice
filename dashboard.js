@@ -21,6 +21,11 @@ intent(vDashboard, ("Make an appointment on $(DATE)"), p => {
     p.then(about, {state: p.state});
 });
 
+intent(vDashboard, ("View event $(EVENT* .+)"), p => {
+    p.play('Viewing event: ' + p.EVENT.value);
+    p.play({command: 'viewEvent', title: p.EVENT.value});
+});
+
 //Only day and time, default 1 hout appointment.
 intent(vDashboard, ("Make an appointment on $(DATE) at $(TIME)"), p => {
     p.play('make an appointment on ');
