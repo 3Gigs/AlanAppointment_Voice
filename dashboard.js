@@ -12,7 +12,6 @@ let about = context(() => {
     });
 });
 
-
 intent(vDashboard, ("Make an appointment (on | at) $(DATE)"), p => {
     p.play(p.DATE.luxon.toISO()); 
     p.state.start = p.DATE.luxon.toISO();
@@ -55,3 +54,7 @@ intent(vDashboardModal, "(close | got it | thank you)", p => {
 intent(vDashboardModal, "delete this event", p => {
     p.play({command: "deleteEvent"});
 })
+
+intent(vDashboard, "(view | show) event $(EVENT* .+)", p => {
+   p.play({command: "viewEvent", title: p.EVENT.value}) 
+});
