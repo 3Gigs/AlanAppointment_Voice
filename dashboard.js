@@ -1,3 +1,6 @@
+const vDashboard = visual({screen: "Dashboard"});
+const vDashboardModal = visual({screen: "Dashboard", modal: true});
+
 let about = context(() => {
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -9,7 +12,7 @@ let about = context(() => {
     });
 });
 
-intent("Make an appointment (on | at) $(DATE)", p => {
+intent(vDashboard, "Make an appointment (on | at) $(DATE)", p => {
     p.play(p.DATE.luxon.toISO()); 
     p.state.start = p.DATE.luxon.toISO();
     p.state.end = p.DATE.luxon.toISO();
@@ -18,7 +21,7 @@ intent("Make an appointment (on | at) $(DATE)", p => {
 });
 
 //Only day and time, default 1 hout appointment.
-intent("Make an appointment (on | at) $(DATE) at $(TIME)", p => {
+intent(vDashboard, "Make an appointment (on | at) $(DATE) at $(TIME)", p => {
     p.state.start = p.DATE.luxon.toISO();
     p.state.end = p.DATE.luxon.toISO();
 
@@ -26,7 +29,7 @@ intent("Make an appointment (on | at) $(DATE) at $(TIME)", p => {
     p.then(about, {state: p.state});
 });
 
-intent("Make an appointment (on | at) $(fromDate DATE) to $(toDate DATE)", p => {
+intent(vDashboard, "Make an appointment (on | at) $(fromDate DATE) to $(toDate DATE)", p => {
    p.state.start = p.fromDate.luxon.toISO();
    p.state.end = p.toDate.luxon.toISO();
    p.play('Ok, what you want to make an appointment for?');
@@ -34,7 +37,7 @@ intent("Make an appointment (on | at) $(fromDate DATE) to $(toDate DATE)", p => 
 });
 
 //Given starting time and end time
-intent("Make an appointment from $(fromDate DATE) $(fromTime TIME) to $(toDate DATE) $(toTime TIME)", p => {
+intent(vDashboard, "Make an appointment from $(fromDate DATE) $(fromTime TIME) to $(toDate DATE) $(toTime TIME)", p => {
     const startTime = p.fromDate.luxon.plus({seconds: p.fromTime.time}).toISO();
     const endTime = p.toDate.luxon.plus({seconds: p.toTime.time}).toISO();
     
