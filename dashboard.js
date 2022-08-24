@@ -7,7 +7,7 @@ let about = context(() => {
     intent('(I want a | It\' for) $(TITLE* .+)' , p => {
         p.play(`You have made an appiontment about ${p.TITLE.value} on ${new Date(p.state.start).toLocaleDateString(undefined, dateOptions)} to ${new Date(p.state.end).toLocaleDateString(undefined, dateOptions)}`);
         p.play({ 
-            command:"createEvent", eventInfo : {title: p.TITLE.value, start: p.state.start, end: p.state.end, id: null}
+            command:"createEvent", eventInfo : {title: p.TITLE.value, start: p.state.start, end: p.state.end}
         });
     });
 });
